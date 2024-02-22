@@ -6,9 +6,9 @@ import Display from "./Display";
 
 export default function Calculator() {
   return (
-    <>
+    <div id="calculator">
       <Display />
       <Keypad />
-    </>
+    </div>
   )
 }

@@ -1,0 +1,57 @@
+$numRows: 5;
+$numCols: 4;
+$minButtonWidth: 100px;
+
+#calculator {
+  max-width: 500px;
+}
+
+#keypad {
+  display: grid;
+  grid-template-columns: repeat($numRows, $minButtonWidth);
+  grid-template-rows: repeat($numCols, $minButtonWidth);
+
+  grid-template-areas:
+    "clear divide times minus"
+    "seven eight  nine  plus"
+    "four  five   six   plus"
+    "one   two    three equals"
+    "zero  zero   dot   equals";
+
+  button {
+    aspect-ratio: 1 / 1;
+  }
+
+  .multi {
+    aspect-ratio: auto !important;
+  }
+
+  @mixin position($className) {
+    .#{$className} {
+      grid-area: $className;
+    }
+  }
+
+  $keys: zero,
+    one,
+    two,
+    three,
+    four,
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    clear,
+    divide,
+    times,
+    minus,
+    plus,
+    equals,
+    dot;
+
+  @each $button in $keys {
+    @include position($button)
+  }
+
+}
