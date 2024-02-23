@@ -19,7 +19,7 @@
 
 - [x] User Story #5: My calculator should contain a clickable element with an id="clear".
 
-- [ ] User Story #6: My calculator should contain an element to display values with a corresponding id="display".
+- [x] User Story #6: My calculator should contain an element to display values with a corresponding id="display".
 
 - [ ] User Story #7: At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of display.
 

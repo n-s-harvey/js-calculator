@@ -3,6 +3,6 @@ import React from "react";
 
 export default function Display() {
   return (
-    <div>Results displayed here...</div>
+    <div id="display">Results displayed here...</div>
   )
 }
