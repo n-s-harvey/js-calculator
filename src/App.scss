@@ -8,8 +8,8 @@ $minButtonWidth: 100px;
 
 #keypad {
   display: grid;
-  grid-template-columns: repeat($numRows, $minButtonWidth);
-  grid-template-rows: repeat($numCols, $minButtonWidth);
+  grid-template-columns: repeat($numCols, $minButtonWidth);
+  grid-template-rows: repeat($numRows, $minButtonWidth);
 
   grid-template-areas:
     "clear divide multiply subtract"
