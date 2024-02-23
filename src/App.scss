@@ -2,8 +2,19 @@ $numRows: 5;
 $numCols: 4;
 $minButtonWidth: 100px;
 
+html {
+  font-size: 10px;
+}
+
 #calculator {
-  max-width: 500px;
+  font-size: 1.5rem;
+  max-width: min-content;
+  padding: 2em;
+}
+
+#display {
+  border: 1px solid gray;
+  margin: 2em;
 }
 
 #keypad {
@@ -54,4 +65,8 @@ $minButtonWidth: 100px;
     @include position($button)
   }
 
+}
+
+#calculator {
+  border: 1px solid gray;
 }
