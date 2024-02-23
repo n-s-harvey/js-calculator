@@ -26,9 +26,9 @@ $minButtonWidth: 100px;
     aspect-ratio: auto !important;
   }
 
-  @mixin position($className) {
-    .#{$className} {
-      grid-area: $className;
+  @mixin position($buttonID) {
+    ##{$buttonID} {
+      grid-area: $buttonID;
     }
   }
 

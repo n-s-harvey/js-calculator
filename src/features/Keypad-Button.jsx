@@ -10,9 +10,12 @@ import React from "react"
 export default function KeypadButton(props) {
   return (
     <>
-      <button className={`${props.position} ${props.extended ? 'multi' : ' '}`}>
+      <button
+        id={props.position}
+        className={`keypad-button ${props.extended ? 'multi' : ''}`}
+      >
         {props.displayText}
-      </button>
+      </button >
     </>
   )
 }
