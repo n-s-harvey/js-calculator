@@ -10,12 +10,12 @@ export default function Keypad() {
   return (
     <div id="keypad">
       <KeypadButton displayText="clear" position="clear" />
-      <KeypadButton displayText="+" position="plus" extended={true} />
-      <KeypadButton displayText="-" position="minus" />
-      <KeypadButton displayText="*" position="times" />
+      <KeypadButton displayText="+" position="add" extended={true} />
+      <KeypadButton displayText="-" position="subtract" />
+      <KeypadButton displayText="*" position="multiply" />
       <KeypadButton displayText="/" position="divide" />
       <KeypadButton displayText="=" position="equals" extended={true} />
-      <KeypadButton displayText="." position="dot" />
+      <KeypadButton displayText="." position="decimal" />
       <KeypadButton displayText="9" position="nine" />
       <KeypadButton displayText="8" position="eight" />
       <KeypadButton displayText="7" position="seven" />

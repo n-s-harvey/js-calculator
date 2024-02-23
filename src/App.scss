@@ -12,11 +12,11 @@ $minButtonWidth: 100px;
   grid-template-rows: repeat($numCols, $minButtonWidth);
 
   grid-template-areas:
-    "clear divide times minus"
-    "seven eight  nine  plus"
-    "four  five   six   plus"
+    "clear divide multiply subtract"
+    "seven eight  nine  add"
+    "four  five   six   add"
     "one   two    three equals"
-    "zero  zero   dot   equals";
+    "zero  zero   decimal   equals";
 
   button {
     aspect-ratio: 1 / 1;
@@ -44,11 +44,11 @@ $minButtonWidth: 100px;
     nine,
     clear,
     divide,
-    times,
-    minus,
-    plus,
+    multiply,
+    subtract,
+    add,
     equals,
-    dot;
+    decimal;
 
   @each $button in $keys {
     @include position($button)
