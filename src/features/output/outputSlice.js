@@ -10,18 +10,18 @@ export const outputSlice = createSlice({
     /**
      * Set the display value of the Calculator.
      */
-    set: (state, action) => {
+    setOutput: (state, action) => {
       state.value = action.payload;
     },
     /**
      * Set the display input string to '0'.
      */
-    reset: (state) => {
+    resetOutput: (state) => {
       state.value = '0';
     }
   }
 })
 
-export const { set } = outputSlice.actions;
+export const { setOutput, resetOutput } = outputSlice.actions;
 
 export default outputSlice.reducer;

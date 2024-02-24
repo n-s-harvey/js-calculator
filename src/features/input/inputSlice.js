@@ -10,18 +10,18 @@ export const inputSlice = createSlice({
     /**
      * Concatenate a digit, decimal, or operator to the end of user's input string.
      */
-    push: (state, action) => {
+    pushInput: (state, action) => {
       state.value += action.payload;
     },
     /**
      * Set the user's input string to '0'.
      */
-    reset: (state) => {
+    resetInput: (state) => {
       state.value = '0';
     }
   }
 })
 
-export const { push, reset } = inputSlice.actions;
+export const { pushInput, resetInput } = inputSlice.actions;
 
 export default inputSlice.reducer;
