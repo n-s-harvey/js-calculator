@@ -21,7 +21,7 @@
 
 - [x] User Story #6: My calculator should contain an element to display values with a corresponding id="display".
 
-- [ ] User Story #7: At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of display.
+- [x] User Story #7: At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of display.
 
 - [ ] User Story #8: As I input numbers, I should be able to see my input in the element with the id of display.
 
