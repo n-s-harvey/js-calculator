@@ -2,9 +2,9 @@
 import React from "react";
 
 import { resetOutput } from "./output/outputSlice";
-import { resetInput } from "./input/inputSlice";
-import { pushInput } from "./input/inputSlice";
 import { pushOutput } from "./output/outputSlice";
+import { resetFormula } from "./input/inputSlice";
+import { pushToFormula } from "./input/inputSlice";
 
 /**
  * @param {string} keypress
@@ -17,7 +17,7 @@ export default function handleKeydown(keypress) {
      * @param {() => import("@reduxjs/toolkit").Store} getState
      */
     return function clearThunk(dispatch, getState) {
-      dispatch(resetInput());
+      dispatch(resetFormula());
       dispatch(resetOutput());
     }
   }

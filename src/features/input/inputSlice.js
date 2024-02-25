@@ -8,20 +8,20 @@ export const inputSlice = createSlice({
   },
   reducers: {
     /**
-     * Concatenate a digit, decimal, or operator to the end of user's input string.
+     * Concatenate a number or operator to the end of the user's input formula.
      */
-    pushInput: (state, action) => {
+    pushToFormula: (state, action) => {
       state.value += action.payload;
     },
     /**
-     * Set the user's input string to '0'.
+     * Set the user's input formula to '0'.
      */
-    resetInput: (state) => {
+    resetFormula: (state) => {
       state.value = '0';
     }
   }
 })
 
-export const { pushInput, resetInput } = inputSlice.actions;
+export const { pushToFormula, resetFormula } = inputSlice.actions;
 
 export default inputSlice.reducer;
