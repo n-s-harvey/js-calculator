@@ -4,6 +4,7 @@ import React from "react";
 import { resetOutput } from "./output/outputSlice";
 import { resetInput } from "./input/inputSlice";
 import { pushInput } from "./input/inputSlice";
+import { pushOutput } from "./output/outputSlice";
 
 /**
  * @param {string} keypress
@@ -26,6 +27,6 @@ export default function handleKeydown(keypress) {
    * @param {() => import("@reduxjs/toolkit").Store} getState
    */
   return function dispatchKey(dispatch, getState) {
-    dispatch(pushInput(keypress));
+    dispatch(pushOutput(keypress));
   }
 }

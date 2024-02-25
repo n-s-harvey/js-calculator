@@ -18,10 +18,16 @@ export const outputSlice = createSlice({
      */
     resetOutput: (state) => {
       state.value = '0';
-    }
+    },
+    /**
+     * Concatenate digits to the end of the user's working entry.
+     */
+    pushOutput: (state, action) => {
+      state.value += action.payload;
+    },
   }
 })
 
-export const { setOutput, resetOutput } = outputSlice.actions;
+export const { setOutput, resetOutput, pushOutput } = outputSlice.actions;
 
 export default outputSlice.reducer;

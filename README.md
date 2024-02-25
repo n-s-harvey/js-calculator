@@ -23,7 +23,7 @@
 
 - [x] User Story #7: At any time, pressing the clear button clears the input and output values, and returns the calculator to its initialized state; 0 should be shown in the element with the id of display.
 
-- [ ] User Story #8: As I input numbers, I should be able to see my input in the element with the id of display.
+- [x] User Story #8: As I input numbers, I should be able to see my input in the element with the id of display.
 
 - [ ] User Story #9: In any order, I should be able to add, subtract, multiply and divide a chain of numbers of any length, and when I hit =, the correct result should be shown in the element with the id of display.
 
