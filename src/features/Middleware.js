@@ -38,9 +38,8 @@ export default function handleKeydown(keypress) {
       const outputSelector = (state) => state.output.value;
       const output = outputSelector(getState());
       if (output !== '0') {
-        dispatch(pushOutput(keypress));
-        const updatedOutput = `${output + keypress}`;
-        dispatch(pushToFormula(updatedOutput));
+        dispatch(pushToFormula(output));
+        dispatch(pushToFormula(keypress));
         dispatch(resetOutput());
       }
     }
