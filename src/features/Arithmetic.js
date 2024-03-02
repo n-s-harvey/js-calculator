@@ -36,11 +36,11 @@ export default function simplify(formula) {
 
   const result = evaluate(operator, lhs, rhs);
 
-  formula.splice(lhsIndex, 3, result);
+  let newLHS = formula.slice(0, lhsIndex);
+  let newRHS = formula.slice(rhsIndex + 1);
+  let newFormula = newLHS.concat(result).concat(newRHS);
 
-  console.log(formula);
-
-  return simplify(formula);
+  return simplify(newFormula);
 
 }
 /**
