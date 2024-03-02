@@ -1,7 +1,7 @@
 // @ts-check
 import React from "react";
 
-import { resetOutput } from "./output/outputSlice";
+import { resetOutput, setOutput } from "./output/outputSlice";
 import { pushOutput } from "./output/outputSlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
@@ -49,6 +49,16 @@ export default function handleKeydown(keypress) {
    * @param {() => import("@reduxjs/toolkit").Store} getState
    */
   return function dispatchKey(dispatch, getState) {
-    dispatch(pushOutput(keypress));
+
+    const outputSelector = (state) => state.output.value;
+    const output = outputSelector(getState());
+
+    if (output == 0) {
+      dispatch(setOutput(keypress))
+    }
+    else {
+      dispatch(pushOutput(keypress));
+    }
+
   }
 }
