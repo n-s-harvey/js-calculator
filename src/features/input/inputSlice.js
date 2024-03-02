@@ -17,7 +17,12 @@ export const inputSlice = createSlice({
         state.value.push(action.payload);
       }
       else {
-        state.value.push(maybeNumber);
+        if (state.value.length == 1) {
+          state.value[0] = maybeNumber;
+        }
+        else {
+          state.value.push(maybeNumber);
+        }
       }
     },
     /**
