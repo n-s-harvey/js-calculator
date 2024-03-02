@@ -5,6 +5,7 @@ import { resetOutput, setOutput } from "./output/outputSlice";
 import { pushOutput } from "./output/outputSlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
+import simplify from "./Arithmetic"
 
 const calculatorOperations = new Map([
   ['*', 'multiply'],
@@ -44,6 +45,26 @@ export default function handleKeydown(keypress) {
       }
     }
   }
+
+  else if (keypress == '=') {
+    return function calculate(dispatch, getState) {
+
+      const outputSelector = (state) => state.output.value;
+      const output = outputSelector(getState());
+
+      dispatch(pushToFormula(output));
+      dispatch(pushToFormula(keypress));
+      dispatch(resetOutput());
+
+      const formulaSelector = (state) => state.input.value;
+      const formula = formulaSelector(getState());
+
+      const result = simplify(formula);
+      dispatch(setOutput(result));
+
+    }
+  }
+
   /**
    * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
    * @param {() => import("@reduxjs/toolkit").Store} getState

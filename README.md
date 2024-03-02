@@ -25,9 +25,9 @@
 
 - [x] User Story #8: As I input numbers, I should be able to see my input in the element with the id of display.
 
-- [ ] User Story #9: In any order, I should be able to add, subtract, multiply and divide a chain of numbers of any length, and when I hit =, the correct result should be shown in the element with the id of display.
+- [x] User Story #9: In any order, I should be able to add, subtract, multiply and divide a chain of numbers of any length, and when I hit =, the correct result should be shown in the element with the id of display.
 
-- [ ] User Story #10: When inputting numbers, my calculator should not allow a number to begin with multiple zeros.
+- [x] User Story #10: When inputting numbers, my calculator should not allow a number to begin with multiple zeros.
 
 - [ ] User Story #11: When the decimal element is clicked, a . should append to the currently displayed value; two . in one number should not be accepted.
 
