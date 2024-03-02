@@ -11,6 +11,10 @@ export default function simplify(formula) {
     '-'
   ];
 
+  if (formula.includes('=')) {
+    formula = formula.filter(element => element != '=');
+  }
+
   if (formula.length == 1 && !isNaN(formula[0])) {
     let [output] = formula;
     return output;
