@@ -72,13 +72,35 @@ export default function handleKeydown(keypress) {
   return function dispatchKey(dispatch, getState) {
 
     const outputSelector = (state) => state.output.value;
+    /**
+     * @type {string}
+     */
     const output = outputSelector(getState());
 
     if (output == 0) {
       dispatch(setOutput(keypress))
     }
+
     else {
-      dispatch(pushOutput(keypress));
+
+      if (keypress == '.') {
+        /**
+         * @type {RegExp}
+         */
+        const decimal = /\./g;
+        const moreThanOneDecimal = (() => {
+          let matches = output.match(decimal);
+          if (matches == null) return false;
+          else if (matches.length < 1) return false;
+          else return true;
+        }
+        )();
+        if (!moreThanOneDecimal) {
+          dispatch(pushOutput(keypress));
+        }
+      }
+
+      else dispatch(pushOutput(keypress));
     }
 
   }

@@ -29,7 +29,7 @@
 
 - [x] User Story #10: When inputting numbers, my calculator should not allow a number to begin with multiple zeros.
 
-- [ ] User Story #11: When the decimal element is clicked, a . should append to the currently displayed value; two . in one number should not be accepted.
+- [x] User Story #11: When the decimal element is clicked, a . should append to the currently displayed value; two . in one number should not be accepted.
 
 - [ ] User Story #12: I should be able to perform any operation (+, -, *, /) on numbers containing decimal points.
 
