@@ -1,0 +1,72 @@
+$numRows: 5;
+$numCols: 4;
+$minButtonWidth: 100px;
+
+html {
+  font-size: 10px;
+}
+
+#calculator {
+  font-size: 1.5rem;
+  max-width: min-content;
+  padding: 2em;
+}
+
+#display-group {
+  border: 1px solid gray;
+  margin: 2em;
+}
+
+#keypad {
+  display: grid;
+  grid-template-columns: repeat($numCols, $minButtonWidth);
+  grid-template-rows: repeat($numRows, $minButtonWidth);
+
+  grid-template-areas:
+    "clear divide multiply subtract"
+    "seven eight  nine  add"
+    "four  five   six   add"
+    "one   two    three equals"
+    "zero  zero   decimal   equals";
+
+  button {
+    aspect-ratio: 1 / 1;
+  }
+
+  .multi {
+    aspect-ratio: auto !important;
+  }
+
+  @mixin position($buttonID) {
+    ##{$buttonID} {
+      grid-area: $buttonID;
+    }
+  }
+
+  $keys: zero,
+    one,
+    two,
+    three,
+    four,
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    clear,
+    divide,
+    multiply,
+    subtract,
+    add,
+    equals,
+    decimal;
+
+  @each $button in $keys {
+    @include position($button)
+  }
+
+}
+
+#calculator {
+  border: 1px solid gray;
+}
