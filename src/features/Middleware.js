@@ -1,8 +1,8 @@
 // @ts-check
 import React from "react";
 
-import { resetOutput, setOutput } from "./output/outputSlice";
-import { pushOutput } from "./output/outputSlice";
+import { resetEntry, setEntry } from "./output/workingEntrySlice";
+import { pushToEntry } from "./output/workingEntrySlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
 import simplify from "./Arithmetic"
@@ -26,7 +26,7 @@ export default function handleKeydown(keypress) {
      */
     return function clearThunk(dispatch, getState) {
       dispatch(resetFormula());
-      dispatch(resetOutput());
+      dispatch(resetEntry());
     }
   }
 
@@ -41,7 +41,7 @@ export default function handleKeydown(keypress) {
       if (output !== '0') {
         dispatch(pushToFormula(output));
         dispatch(pushToFormula(keypress));
-        dispatch(resetOutput());
+        dispatch(resetEntry());
       }
     }
   }
@@ -54,13 +54,13 @@ export default function handleKeydown(keypress) {
 
       dispatch(pushToFormula(output));
       dispatch(pushToFormula(keypress));
-      dispatch(resetOutput());
+      dispatch(resetEntry());
 
       const formulaSelector = (state) => state.input.value;
       const formula = formulaSelector(getState());
 
       const result = simplify(formula);
-      dispatch(setOutput(result));
+      dispatch(setEntry(result));
 
     }
   }
@@ -78,7 +78,7 @@ export default function handleKeydown(keypress) {
     const output = outputSelector(getState());
 
     if (output == 0) {
-      dispatch(setOutput(keypress))
+      dispatch(setEntry(keypress))
     }
 
     else {
@@ -96,11 +96,11 @@ export default function handleKeydown(keypress) {
         }
         )();
         if (!moreThanOneDecimal) {
-          dispatch(pushOutput(keypress));
+          dispatch(pushToEntry(keypress));
         }
       }
 
-      else dispatch(pushOutput(keypress));
+      else dispatch(pushToEntry(keypress));
     }
 
   }

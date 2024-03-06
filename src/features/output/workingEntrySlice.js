@@ -1,7 +1,7 @@
 // @ts-check
 import { createSlice } from "@reduxjs/toolkit";
 
-export const outputSlice = createSlice({
+export const workingEntrySlice = createSlice({
   name: 'output',
   initialState: {
     value: '0',
@@ -10,24 +10,24 @@ export const outputSlice = createSlice({
     /**
      * Set the display value of the Calculator.
      */
-    setOutput: (state, action) => {
+    setEntry: (state, action) => {
       state.value = action.payload;
     },
     /**
      * Set the display input string to '0'.
      */
-    resetOutput: (state) => {
+    resetEntry: (state) => {
       state.value = '0';
     },
     /**
      * Concatenate digits to the end of the user's working entry.
      */
-    pushOutput: (state, action) => {
+    pushToEntry: (state, action) => {
       state.value += action.payload;
     },
   }
 })
 
-export const { setOutput, resetOutput, pushOutput } = outputSlice.actions;
+export const { setEntry, resetEntry, pushToEntry } = workingEntrySlice.actions;
 
-export default outputSlice.reducer;
+export default workingEntrySlice.reducer;
