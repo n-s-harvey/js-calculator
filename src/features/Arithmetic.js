@@ -6,13 +6,6 @@ import Operators from "./Operators";
  */
 export default function simplify(formula) {
 
-  const calculatorOperations = [
-    '*',
-    '/',
-    '+',
-    '-'
-  ];
-
   if (formula.includes('=')) {
     formula = formula.filter(element => element != '=');
   }
@@ -27,7 +20,7 @@ export default function simplify(formula) {
    * @type {number}
    */
   let operatorIndex;
-  for (const operator of calculatorOperations) {
+  for (const operator of Operators.order) {
     operatorIndex = formula.findIndex(element => element == operator);
     if (operatorIndex != -1) {
       lhsIndex = operatorIndex - 1;
