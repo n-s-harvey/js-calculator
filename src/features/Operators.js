@@ -18,4 +18,11 @@ export default class Operators {
     Operators.add,
     Operators.subtract
   ];
+  /**
+   * Check if the given string is an operator.
+   * @param {String} string
+   */
+  static includes(string) {
+    return Operators.order.includes(string);
+  }
 }

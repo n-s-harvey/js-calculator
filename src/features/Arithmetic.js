@@ -1,3 +1,5 @@
+import Operators from "./Operators";
+
 /**
  * @param {Array.<(number|string)>} formula - Formula to evaluate.
  * @returns {number}
@@ -53,18 +55,10 @@ export default function simplify(formula) {
   * @param {number} rhs - Right hand side of expression
   */
 function evaluate(op, lhs, rhs) {
-  switch (op) {
-    case '*':
-      return lhs * rhs;
-    case '/':
-      return lhs / rhs;
-    case '+':
-      return lhs + rhs;
-    case '-':
-      return lhs - rhs;
-    default:
-      break;
-  }
+  if (op == Operators.multiply) return lhs * rhs;
+  if (op == Operators.divide) return lhs / rhs;
+  if (op == Operators.add) return lhs + rhs;
+  if (op == Operators.subtract) return lhs - rhs;
 }
 
 // simplify([1, "+", 2])

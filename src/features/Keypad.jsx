@@ -2,6 +2,7 @@
 
 import React from "react"
 import KeypadButton from "./Keypad-Button"
+import Operators from "./Operators"
 
 // import '../App.scss'
 
@@ -10,10 +11,10 @@ export default function Keypad() {
   return (
     <div id="keypad">
       <KeypadButton displayText="clear" position="clear" />
-      <KeypadButton displayText="+" position="add" extended={true} />
-      <KeypadButton displayText="-" position="subtract" />
-      <KeypadButton displayText="*" position="multiply" />
-      <KeypadButton displayText="/" position="divide" />
+      <KeypadButton displayText={Operators.add} position="add" extended={true} />
+      <KeypadButton displayText={Operators.subtract} position="subtract" />
+      <KeypadButton displayText={Operators.multiply} position="multiply" />
+      <KeypadButton displayText={Operators.divide} position="divide" />
       <KeypadButton displayText="=" position="equals" extended={true} />
       <KeypadButton displayText="." position="decimal" />
       <KeypadButton displayText="9" position="nine" />

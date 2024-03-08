@@ -6,13 +6,7 @@ import { pushToEntry } from "./output/workingEntrySlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
 import simplify from "./Arithmetic"
-
-const calculatorOperations = new Map([
-  ['*', 'multiply'],
-  ['/', 'divide'],
-  ['+', 'add'],
-  ['-', 'subtract']
-]);
+import Operators from "./Operators";
 
 /**
  * @param {string} keypress
@@ -30,7 +24,7 @@ export default function handleKeydown(keypress) {
     }
   }
 
-  else if (calculatorOperations.has(keypress)) {
+  else if (Operators.includes(keypress)) {
     /**
      * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
      * @param {() => import("@reduxjs/toolkit").Store} getState
