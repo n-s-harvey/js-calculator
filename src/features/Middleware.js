@@ -30,10 +30,10 @@ export default function handleKeydown(keypress) {
      * @param {() => import("@reduxjs/toolkit").Store} getState
      */
     return function pushSymbol(dispatch, getState) {
-      const outputSelector = (state) => state.output.value;
-      const output = outputSelector(getState());
-      if (output !== '0') {
-        dispatch(pushToFormula(output));
+      const workingEntrySelector = (state) => state.output.value;
+      const workingEntry = workingEntrySelector(getState());
+      if (workingEntry !== '0') {
+        dispatch(pushToFormula(workingEntry));
         dispatch(pushToFormula(keypress));
         dispatch(resetEntry());
       }
@@ -43,10 +43,10 @@ export default function handleKeydown(keypress) {
   else if (keypress == '=') {
     return function calculate(dispatch, getState) {
 
-      const outputSelector = (state) => state.output.value;
-      const output = outputSelector(getState());
+      const workingEntrySelector = (state) => state.output.value;
+      const workingEntry = workingEntrySelector(getState());
 
-      dispatch(pushToFormula(output));
+      dispatch(pushToFormula(workingEntry));
       dispatch(pushToFormula(keypress));
       dispatch(resetEntry());
 
@@ -65,13 +65,13 @@ export default function handleKeydown(keypress) {
    */
   return function dispatchKey(dispatch, getState) {
 
-    const outputSelector = (state) => state.output.value;
+    const workingEntrySelector = (state) => state.output.value;
     /**
      * @type {string}
      */
-    const output = outputSelector(getState());
+    const workingEntry = workingEntrySelector(getState());
 
-    if (output == 0) {
+    if (workingEntry == 0) {
       dispatch(setEntry(keypress))
     }
 
@@ -83,7 +83,7 @@ export default function handleKeydown(keypress) {
          */
         const decimal = /\./g;
         const moreThanOneDecimal = (() => {
-          let matches = output.match(decimal);
+          let matches = workingEntry.match(decimal);
           if (matches == null) return false;
           else if (matches.length < 1) return false;
           else return true;
