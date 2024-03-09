@@ -5,6 +5,7 @@ import { resetEntry, setEntry } from "./output/workingEntrySlice";
 import { pushToEntry } from "./output/workingEntrySlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
+import { formulaPop } from "./input/inputSlice";
 import simplify from "./Arithmetic"
 import Operators from "./Operators";
 
@@ -36,6 +37,21 @@ export default function handleKeydown(keypress) {
         dispatch(pushToFormula(workingEntry));
         dispatch(pushToFormula(keypress));
         dispatch(resetEntry());
+      }
+      if (workingEntry == '0') {
+        if (keypress != Operators.subtract) {
+          dispatch(formulaPop());
+          dispatch(pushToFormula(keypress));
+          dispatch(resetEntry());
+        }
+        else {
+          const formulaSelector = (state) => state.input.value;
+          const formula = formulaSelector(getState());
+          if (formula.at(-1) != Operators.subtract) {
+            // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
+            dispatch(setEntry('-'));
+          }
+        }
       }
     }
   }
