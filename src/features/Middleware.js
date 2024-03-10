@@ -33,23 +33,34 @@ export default function handleKeydown(keypress) {
     return function pushSymbol(dispatch, getState) {
       const workingEntrySelector = (state) => state.output.value;
       const workingEntry = workingEntrySelector(getState());
-      if (workingEntry !== '0') {
+      const formulaSelector = (state) => state.input.value;
+      const formula = formulaSelector(getState());
+      if (formula.at(-1) == '=') {
+        dispatch(resetFormula());
         dispatch(pushToFormula(workingEntry));
         dispatch(pushToFormula(keypress));
         dispatch(resetEntry());
       }
-      if (workingEntry == '0') {
-        if (keypress != Operators.subtract) {
-          dispatch(formulaPop());
+
+      else {
+        if (workingEntry !== '0') {
+          dispatch(pushToFormula(workingEntry));
           dispatch(pushToFormula(keypress));
           dispatch(resetEntry());
         }
-        else {
-          const formulaSelector = (state) => state.input.value;
-          const formula = formulaSelector(getState());
-          if (formula.at(-1) != Operators.subtract) {
-            // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
-            dispatch(setEntry('-'));
+        if (workingEntry == '0') {
+          if (keypress != Operators.subtract) {
+            dispatch(formulaPop());
+            dispatch(pushToFormula(keypress));
+            dispatch(resetEntry());
+          }
+          else {
+            const formulaSelector = (state) => state.input.value;
+            const formula = formulaSelector(getState());
+            if (formula.at(-1) != Operators.subtract) {
+              // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
+              dispatch(setEntry('-'));
+            }
           }
         }
       }
