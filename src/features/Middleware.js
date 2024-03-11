@@ -85,17 +85,17 @@ export default function handleKeydown(keypress) {
   }
 
   else if (keypress == '=') {
-    return function calculate(dispatch, getState) {
+    return function calculateThunk(dispatch, getState) {
 
-      const workingEntrySelector = (state) => state.output.value;
-      const workingEntry = workingEntrySelector(getState());
+      const selectWorkingEntry = (state) => state.output.value;
+      const workingEntry = selectWorkingEntry(getState());
 
       dispatch(pushToFormula(workingEntry));
       dispatch(pushToFormula(keypress));
       dispatch(resetEntry());
 
-      const formulaSelector = (state) => state.input.value;
-      const formula = formulaSelector(getState());
+      const selectFormula = (state) => state.input.value;
+      const formula = selectFormula(getState());
 
       const result = simplify(formula);
       dispatch(setEntry(result));
