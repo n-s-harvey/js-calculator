@@ -30,40 +30,57 @@ export default function handleKeydown(keypress) {
      * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
      * @param {() => import("@reduxjs/toolkit").Store} getState
      */
-    return function pushSymbol(dispatch, getState) {
-      const workingEntrySelector = (state) => state.output.value;
-      const workingEntry = workingEntrySelector(getState());
-      const formulaSelector = (state) => state.input.value;
-      const formula = formulaSelector(getState());
-      if (formula.at(-1) == '=') {
+    return function handleOperatorThunk(dispatch, getState) {
+
+      const selectWorkingEntry = (state) => state.output.value;
+      const selectFormula = (state) => state.input.value;
+
+      /**
+       * @type {String}
+       */
+      const workingEntry = selectWorkingEntry(getState());
+
+      /**
+       * @type {Array<string|number>}
+       */
+      const formula = selectFormula(getState());
+
+      const isFormulaEvaluated = formula.includes('=');
+
+      if (isFormulaEvaluated) {
         dispatch(resetFormula());
         dispatch(pushToFormula(workingEntry));
         dispatch(pushToFormula(keypress));
         dispatch(resetEntry());
+        return;
       }
 
-      else {
-        if (workingEntry !== '0') {
-          dispatch(pushToFormula(workingEntry));
+      const isEntryEmpty = workingEntry == '0';
+
+      if (isEntryEmpty) {
+
+        if (keypress != Operators.subtract) {
+          dispatch(formulaPop());
           dispatch(pushToFormula(keypress));
           dispatch(resetEntry());
+          return;
         }
-        if (workingEntry == '0') {
-          if (keypress != Operators.subtract) {
-            dispatch(formulaPop());
-            dispatch(pushToFormula(keypress));
-            dispatch(resetEntry());
-          }
-          else {
-            const formulaSelector = (state) => state.input.value;
-            const formula = formulaSelector(getState());
-            if (formula.at(-1) != Operators.subtract) {
-              // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
-              dispatch(setEntry('-'));
-            }
-          }
+
+        if (formula.at(-1) != Operators.subtract) {
+          // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
+          dispatch(setEntry('-'));
+          return;
         }
+
       }
+
+      if (!isEntryEmpty) {
+        dispatch(pushToFormula(workingEntry));
+        dispatch(pushToFormula(keypress));
+        dispatch(resetEntry());
+        return;
+      }
+
     }
   }
 
