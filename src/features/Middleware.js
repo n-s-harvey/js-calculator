@@ -107,38 +107,43 @@ export default function handleKeydown(keypress) {
    * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
    * @param {() => import("@reduxjs/toolkit").Store} getState
    */
-  return function dispatchKey(dispatch, getState) {
+  return function handleKeyThunk(dispatch, getState) {
 
-    const workingEntrySelector = (state) => state.output.value;
+    const selectWorkingEntry = (state) => state.output.value;
     /**
      * @type {string}
      */
-    const workingEntry = workingEntrySelector(getState());
+    const workingEntry = selectWorkingEntry(getState());
 
-    if (workingEntry == 0) {
-      dispatch(setEntry(keypress))
+    const isWorkingEntryEmpty = workingEntry == '0';
+
+    if (isWorkingEntryEmpty) {
+      dispatch(setEntry(keypress));
+      return;
     }
 
-    else {
+    if (keypress == '.') {
+      /**
+       * @type {RegExp}
+       */
+      const decimal = /\./g;
 
-      if (keypress == '.') {
-        /**
-         * @type {RegExp}
-         */
-        const decimal = /\./g;
-        const moreThanOneDecimal = (() => {
-          let matches = workingEntry.match(decimal);
-          if (matches == null) return false;
-          else if (matches.length < 1) return false;
-          else return true;
-        }
-        )();
-        if (!moreThanOneDecimal) {
-          dispatch(pushToEntry(keypress));
-        }
+      const isDecimalInWorkingEntry = (() => {
+        let matches = workingEntry.match(decimal);
+        if (matches == null) return false;
+        else return true;
       }
+      )();
 
-      else dispatch(pushToEntry(keypress));
+      if (!isDecimalInWorkingEntry) {
+        dispatch(pushToEntry(keypress));
+        return;
+      }
+    }
+
+    else if (keypress != '.') {
+      dispatch(pushToEntry(keypress));
+      return;
     }
 
   }
