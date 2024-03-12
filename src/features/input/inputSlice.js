@@ -30,10 +30,16 @@ export const inputSlice = createSlice({
      */
     resetFormula: (state) => {
       state.value = [0];
+    },
+    /**
+     * Pop the last entry from the formula.
+     */
+    formulaPop: (state) => {
+      state.value.pop();
     }
   }
 })
 
-export const { pushToFormula, resetFormula } = inputSlice.actions;
+export const { pushToFormula, resetFormula, formulaPop } = inputSlice.actions;
 
 export default inputSlice.reducer;

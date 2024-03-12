@@ -1,18 +1,13 @@
 // @ts-check
 import React from "react";
 
-import { resetOutput, setOutput } from "./output/outputSlice";
-import { pushOutput } from "./output/outputSlice";
+import { resetEntry, setEntry } from "./output/workingEntrySlice";
+import { pushToEntry } from "./output/workingEntrySlice";
 import { resetFormula } from "./input/inputSlice";
 import { pushToFormula } from "./input/inputSlice";
+import { formulaPop } from "./input/inputSlice";
 import simplify from "./Arithmetic"
-
-const calculatorOperations = new Map([
-  ['*', 'multiply'],
-  ['/', 'divide'],
-  ['+', 'add'],
-  ['-', 'subtract']
-]);
+import Operators from "./Operators";
 
 /**
  * @param {string} keypress
@@ -26,41 +21,84 @@ export default function handleKeydown(keypress) {
      */
     return function clearThunk(dispatch, getState) {
       dispatch(resetFormula());
-      dispatch(resetOutput());
+      dispatch(resetEntry());
     }
   }
 
-  else if (calculatorOperations.has(keypress)) {
+  else if (Operators.includes(keypress)) {
     /**
      * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
      * @param {() => import("@reduxjs/toolkit").Store} getState
      */
-    return function pushSymbol(dispatch, getState) {
-      const outputSelector = (state) => state.output.value;
-      const output = outputSelector(getState());
-      if (output !== '0') {
-        dispatch(pushToFormula(output));
+    return function handleOperatorThunk(dispatch, getState) {
+
+      const selectWorkingEntry = (state) => state.output.value;
+      const selectFormula = (state) => state.input.value;
+
+      /**
+       * @type {String}
+       */
+      const workingEntry = selectWorkingEntry(getState());
+
+      /**
+       * @type {Array<string|number>}
+       */
+      const formula = selectFormula(getState());
+
+      const isFormulaEvaluated = formula.includes('=');
+
+      if (isFormulaEvaluated) {
+        dispatch(resetFormula());
+        dispatch(pushToFormula(workingEntry));
         dispatch(pushToFormula(keypress));
-        dispatch(resetOutput());
+        dispatch(resetEntry());
+        return;
       }
+
+      const isEntryEmpty = workingEntry == '0';
+
+      if (isEntryEmpty) {
+
+        if (keypress != Operators.subtract) {
+          dispatch(formulaPop());
+          dispatch(pushToFormula(keypress));
+          dispatch(resetEntry());
+          return;
+        }
+
+        if (formula.at(-1) != Operators.subtract) {
+          // Dispatch a hyphen: Operators.subtract is an en dash and won't parse
+          dispatch(setEntry('-'));
+          return;
+        }
+
+      }
+
+      if (!isEntryEmpty) {
+        dispatch(pushToFormula(workingEntry));
+        dispatch(pushToFormula(keypress));
+        dispatch(resetEntry());
+        return;
+      }
+
     }
   }
 
   else if (keypress == '=') {
-    return function calculate(dispatch, getState) {
+    return function calculateThunk(dispatch, getState) {
 
-      const outputSelector = (state) => state.output.value;
-      const output = outputSelector(getState());
+      const selectWorkingEntry = (state) => state.output.value;
+      const workingEntry = selectWorkingEntry(getState());
 
-      dispatch(pushToFormula(output));
+      dispatch(pushToFormula(workingEntry));
       dispatch(pushToFormula(keypress));
-      dispatch(resetOutput());
+      dispatch(resetEntry());
 
-      const formulaSelector = (state) => state.input.value;
-      const formula = formulaSelector(getState());
+      const selectFormula = (state) => state.input.value;
+      const formula = selectFormula(getState());
 
       const result = simplify(formula);
-      dispatch(setOutput(result));
+      dispatch(setEntry(result));
 
     }
   }
@@ -69,38 +107,43 @@ export default function handleKeydown(keypress) {
    * @param {import("@reduxjs/toolkit").Dispatch<import("@reduxjs/toolkit").AnyAction>} dispatch
    * @param {() => import("@reduxjs/toolkit").Store} getState
    */
-  return function dispatchKey(dispatch, getState) {
+  return function handleKeyThunk(dispatch, getState) {
 
-    const outputSelector = (state) => state.output.value;
+    const selectWorkingEntry = (state) => state.output.value;
     /**
      * @type {string}
      */
-    const output = outputSelector(getState());
+    const workingEntry = selectWorkingEntry(getState());
 
-    if (output == 0) {
-      dispatch(setOutput(keypress))
+    const isWorkingEntryEmpty = workingEntry == '0';
+
+    if (isWorkingEntryEmpty) {
+      dispatch(setEntry(keypress));
+      return;
     }
 
-    else {
+    if (keypress == '.') {
+      /**
+       * @type {RegExp}
+       */
+      const decimal = /\./g;
 
-      if (keypress == '.') {
-        /**
-         * @type {RegExp}
-         */
-        const decimal = /\./g;
-        const moreThanOneDecimal = (() => {
-          let matches = output.match(decimal);
-          if (matches == null) return false;
-          else if (matches.length < 1) return false;
-          else return true;
-        }
-        )();
-        if (!moreThanOneDecimal) {
-          dispatch(pushOutput(keypress));
-        }
+      const isDecimalInWorkingEntry = (() => {
+        let matches = workingEntry.match(decimal);
+        if (matches == null) return false;
+        else return true;
       }
+      )();
 
-      else dispatch(pushOutput(keypress));
+      if (!isDecimalInWorkingEntry) {
+        dispatch(pushToEntry(keypress));
+        return;
+      }
+    }
+
+    else if (keypress != '.') {
+      dispatch(pushToEntry(keypress));
+      return;
     }
 
   }
