@@ -6,7 +6,7 @@ import Display from "./Display";
 
 export default function Calculator() {
   return (
-    <div id="calculator">
+    <div id="calculator" className="inter-regular">
       <Display />
       <Keypad />
     </div>

@@ -18,7 +18,7 @@ export default function KeypadButton(props) {
     <>
       <button
         id={props.position}
-        className={`keypad-button ${props.extended ? 'multi' : ''}`}
+        className={`keypad-button inter-regular ${props.extended ? 'multi' : ''}`}
         onClick={handleClick}
       >
         {props.displayText}
