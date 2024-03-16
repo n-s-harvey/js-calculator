@@ -4,8 +4,12 @@ $minButtonWidth: 100px;
 
 $text: #201906;
 $bg-numkeys: #fefcf9;
-$bg-calculator: #88a3aa;
-$primary: #d89b2e;
+$bg-numkeys-hover: #8A8987;
+$bg-numkeys-active: #61605F;
+$bg-calculator: #1C211C;
+$bg-opkeys: #d89b2e;
+$bg-opkeys-hover: #634715;
+$bg-opkeys-active: #3B2A0C;
 $secondary: #88e9df;
 $accent: #5b90e0;
 
@@ -77,19 +81,37 @@ body {
 
   button {
     aspect-ratio: 1 / 1;
-    font-size: 1.5em;
+    font-size: 2.2em;
     font-weight: bold;
     border-radius: 50%;
-    background-color: gray;
     border: none;
+    color: $text;
   }
 
   .num-keys {
     background-color: $bg-numkeys;
   }
 
+  .num-keys:hover {
+    background-color: $bg-numkeys-hover;
+    transition: 0.1s ease-out;
+  }
+
+  .num-keys:active {
+    background-color: $bg-numkeys-active;
+  }
+
   .op-keys {
-    background-color: $primary;
+    background-color: $bg-opkeys;
+  }
+
+  .op-keys:hover {
+    background-color: $bg-opkeys-hover;
+    transition: 0.1s ease-out;
+  }
+
+  .op-keys:active {
+    background-color: $bg-opkeys-active;
   }
 
   .multi {
