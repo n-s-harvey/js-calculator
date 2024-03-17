@@ -2,25 +2,75 @@ $numRows: 5;
 $numCols: 4;
 $minButtonWidth: 100px;
 
+$text: #201906;
+$bg-numkeys: #fefcf9;
+$bg-numkeys-hover: #8A8987;
+$bg-numkeys-active: #61605F;
+$bg-calculator: #1C211C;
+$bg-opkeys: #d89b2e;
+$bg-opkeys-hover: #634715;
+$bg-opkeys-active: #3B2A0C;
+$secondary: #88e9df;
+$accent: #5b90e0;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.inter-regular {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
+
 html {
   font-size: 10px;
 }
 
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(127deg, rgba(0, 0, 0, .3), black 70.71%)
+}
+
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #calculator {
+  margin-top: 3em;
   font-size: 1.5rem;
   max-width: min-content;
   padding: 2em;
+  color: $text;
+  background-color: $bg-calculator;
+  border-radius: 0.5rem;
 }
 
 #display-group {
   border: 1px solid gray;
-  margin: 2em;
+  margin: 1em 0 1em;
+  font-size: 2.5em;
+  background-color: $bg-numkeys;
+  border-radius: 0.5rem;
+  padding: 0.25em;
 }
 
 #keypad {
+  $corner-radius: 1.5rem;
+
   display: grid;
   grid-template-columns: repeat($numCols, $minButtonWidth);
   grid-template-rows: repeat($numRows, $minButtonWidth);
+  gap: 0.5em;
 
   grid-template-areas:
     "clear divide multiply subtract"
@@ -31,10 +81,42 @@ html {
 
   button {
     aspect-ratio: 1 / 1;
+    font-size: 2.2em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: none;
+    color: $text;
+  }
+
+  .num-keys {
+    background-color: $bg-numkeys;
+  }
+
+  .num-keys:hover {
+    background-color: $bg-numkeys-hover;
+    transition: 0.1s ease-out;
+  }
+
+  .num-keys:active {
+    background-color: $bg-numkeys-active;
+  }
+
+  .op-keys {
+    background-color: $bg-opkeys;
+  }
+
+  .op-keys:hover {
+    background-color: $bg-opkeys-hover;
+    transition: 0.1s ease-out;
+  }
+
+  .op-keys:active {
+    background-color: $bg-opkeys-active;
   }
 
   .multi {
     aspect-ratio: auto !important;
+    border-radius: $corner-radius;
   }
 
   @mixin position($buttonID) {
